@@ -7,6 +7,9 @@ from functools import partial
 
 
 def sanitize_base(base_url):
+    """
+    Make sure that the url base is http or https, and doesn't end with a '/'
+    """
     if not re.match('https?://', base_url):
         base_url = "http://" + base_url
     while base_url.endswith('/'):
@@ -15,30 +18,70 @@ def sanitize_base(base_url):
 
 
 def validate_request(r):
+    """
+    Validate code 200 for request
+    """
     assert r.ok, "Request failed with error code {error}".format(error=r.status_code)
 
 
+class FlusherSetter(object):
+    """
+    Automate flusher settings
+    """
+    def __init__(self, f, flusher, key):
+        self.f = f
+        self.flusher = flusher
+        self.key = key
+
+    def __call__(self, instance, value):
+        flusher = getattr(instance, self.flusher)
+        flusher[self.key] = self.f(instance, value)
+
+
+flushersetter = lambda flusher, key: partial(FlusherSetter, flusher=flusher, key=key)
+
+
 class RestfulMethod(object):
-    def __init__(self, f, route, base=None, raw=False):
+    """
+    A base skeleton for REST methods
+    """
+    def __init__(self, f, route, base, raw=False):
+        """
+        :param f: function wrapped
+        :param route: the route to follow
+        :param base: http root
+        :param raw: don't load response as json
+        """
         self.f = f
         self.route = route
         self._base = None
-        if base:
-            self.base = base
+        self.base = base
         self.raw = raw
 
     @property
     def base(self):
+        """
+        Wrapping root server url
+        """
         return self._base
 
     @base.setter
     def base(self, value):
+        """
+        Sanitizing value of root url
+        """
         self._base = sanitize_base(value)
 
     def _extract_parameters(self):
+        """
+        Extract instance parameters from url (marked with <>)
+        """
         return re.compile('<(.*?)>').findall(self.route)
 
     def get_url(self, instance=None):
+        """
+        Resolve full url
+        """
         url = self.base + self.route
         if instance:
             for prop in self._extract_parameters():
@@ -46,27 +89,71 @@ class RestfulMethod(object):
         return url
 
     def __call__(self, *args, **kwargs):
+        """
+        This is the actual call
+        """
         pass
 
     def __get__(self, instance, owner=None):
+        """
+        This makes it onto an instance method
+        """
         return partial(self, instance)
 
 
 class GETRestfulMethod(RestfulMethod):
+    """
+    This is a REST-ful GET method.
+    It can be cached.
+    """
+    def __init__(self, f, route, base, raw=False, cache=None):
+        """
+        :param f: function wrapped
+        :param route: the route to follow
+        :param base: http root
+        :param raw: don't load response as json
+        :param cache: cache for this route
+        """
+        super(GETRestfulMethod, self).__init__(f, route, base, raw)
+        self.cache = cache
+
     def __call__(self, instance):
-        r = requests.get(self.get_url(instance))
+        url = self.get_url(instance)
+        if self.cache and url in self.cache:
+            value = self.cache[url]
+            return self.f(instance, json.loads(value) if not self.raw else value)
+        r = requests.get(url)
         validate_request(r)
-        return self.f(instance,
-                      json.loads(r.text) if not self.raw else r.text) \
-            if self.f.func_code.co_argcount == 2 else self.f(instance)
+        value = r.text
+        if self.f.func_code.co_argcount == 1:
+            return self.f(instance)
+        if self.cache:
+            self.cache[url] = value
+        return self.f(instance, json.loads(value) if not self.raw else value)
 
 
 class GETRestfulProperty(GETRestfulMethod):
+    """
+    This is a REST-ful GET property.
+    It can be cached.
+    It can be set with a setter callback.
+    """
     def __get__(self, instance, owner=None):
         return self(instance)
 
+    def setter(self, callback):
+        self._setter = callback
+
+    def __set__(self, instance, value):
+        if not hasattr(self, '_setter'):
+            raise AttributeError('This attribute cannot be set')
+        self._setter(instance, value)
+
 
 class DELETERestfulMethod(RestfulMethod):
+    """
+    This is a REST-ful DELETE method.
+    """
     def __call__(self, instance):
         r = requests.delete(self.get_url(instance))
         validate_request(r)
@@ -74,6 +161,9 @@ class DELETERestfulMethod(RestfulMethod):
 
 
 class PUTRestfulMethod(RestfulMethod):
+    """
+    This is a REST-ful PUT method.
+    """
     def __call__(self, instance, *args, **kwargs):
         edited = self.f(instance, *args, **kwargs)
         r = requests.put(self.get_url(instance), edited)
@@ -82,6 +172,9 @@ class PUTRestfulMethod(RestfulMethod):
 
 
 class POSTRestfulFunction(RestfulMethod):
+    """
+    This is a REST-ful POST static function.
+    """
     def __call__(self, owner, *args, **kwargs):
         edited = self.f(*args, **kwargs)
         r = requests.post(self.get_url(), edited)
@@ -97,17 +190,24 @@ class POSTRestfulFunction(RestfulMethod):
 
 
 class RestfulApplication(object):
+    """
+    Base Restful Application instance for use in module.
+    """
     def __init__(self, base_url):
-        self.base = base_url
+        self.base = sanitize_base(base_url)
+        self._cache = {}
 
-    def get(self, route, raw=False):
+    def purge(self):
+        self._cache.clear()
+
+    def get(self, route, raw=False, cache=True):
         def _outer(f):
-            return GETRestfulProperty(f, route, self.base, raw)
+            return GETRestfulProperty(f, route, self.base, raw, self._cache if cache else None)
         return _outer
 
-    def route(self, route, raw=False):
+    def route(self, route, raw=False, cache=True):
         def _outer(f):
-            return GETRestfulMethod(f, route, self.base, raw)
+            return GETRestfulMethod(f, route, self.base, raw, self._cache if cache else None)
         return _outer
 
     def post(self, route, raw=False):
@@ -124,3 +224,20 @@ class RestfulApplication(object):
         def _outer(f):
             return DELETERestfulMethod(f, route, self.base, raw)
         return _outer
+
+    def flusher(self, restful_instance, route):
+        return PutFlusher(self, restful_instance, route)
+
+
+class PutFlusher(dict):
+    """
+    This is a dict you can flush onto a url, connected to a restful instance.
+    """
+    def __init__(self, restful_app, restful_instance, route, *args, **kwargs):
+        super(PutFlusher, self).__init__(*args, **kwargs)
+        self.flush = partial(PUTRestfulMethod(lambda x: self._flush(), route, restful_app.base), restful_instance)
+
+    def _flush(self):
+        r = self.copy()
+        self.clear()
+        return r

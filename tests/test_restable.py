@@ -1,7 +1,7 @@
 __author__ = 'oakfang'
 
 from cain.restable import RestfulApplication
-from cain.restable import DELETERestfulMethod, GETRestfulProperty, PUTRestfulMethod, POSTRestfulFunction
+from cain.restable import DELETERestfulMethod, GETRestfulProperty, PUTRestfulMethod, POSTRestfulFunction, flushersetter
 import pytest
 
 
@@ -11,18 +11,23 @@ app = RestfulApplication("http://localhost:5000")
 class Dummy(object):
     def __init__(self, dummy_id):
         self.dummy_id = dummy_id
+        self._backend = app.flusher(self, '/dummy/<dummy_id>')
+
+    def commit(self):
+        self._backend.flush()
 
     @staticmethod
     def __rest__(jsn):
         return Dummy(jsn["id"])
 
-    @app.get('/dummy/<dummy_id>')
+    @app.get('/dummy/<dummy_id>', cache=False)
     def name(self, jsn):
         return jsn["name"]
 
-    @app.put('/dummy/<dummy_id>')
+    @name.setter
+    @flushersetter('_backend', 'name')
     def set_name(self, name):
-        return {'name': name}
+        return name
 
     @app.post('/dummy')
     def new(name):
@@ -69,8 +74,8 @@ def test_dummy_get():
 
 def test_dummy_put():
     d = Dummy(1)
-    changes = d.set_name("poof")
-    assert changes['name'] == "poof"
+    d.name = 'poof'
+    assert Dummy(1).name == "poof"
 
 
 def test_dummy_post():
