@@ -26,7 +26,8 @@ app = flask.Flask(__name__)
 def clean_form(form, **fixes):
     dict_form = dict(form)
     for key, func in fixes.iteritems():
-        dict_form[key] = func(dict_form[key])
+        if key in dict_form:
+            dict_form[key] = func(dict_form[key])
     return dict_form
 
 
@@ -36,8 +37,8 @@ def get_dummy(dummy_id=None):
     method = flask.request.method
     if method == 'GET':
         if dummy_id is None:
-            form = clean_form(flask.request.args, name=lambda lst: lst[0])
-            print Dummy._backend
+            form = clean_form(flask.request.args, name=lambda lst: lst[0],
+                              id=lambda lst: int(lst[0]))
             return jsonify(Dummy.get(**form))
         return jsonify(Dummy.get(id=dummy_id)[0] if Dummy.get(id=dummy_id) else None)
     if method == 'PUT':
