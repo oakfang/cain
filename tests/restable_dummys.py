@@ -2,12 +2,11 @@ __author__ = 'oakfang'
 
 import flask
 from cain.jsonable import Jsonable, jsonify
-from cain.queryable import IterableQueryable
+from cain.queryable import BaseQueryable
 
 
-class Dummy(Jsonable, IterableQueryable):
+class Dummy(Jsonable, BaseQueryable):
     __jattrs__ = ['id', 'name']
-    _backend = []
 
     def __init__(self, did, name):
         self.id = did
@@ -16,17 +15,6 @@ class Dummy(Jsonable, IterableQueryable):
     def update(self, attrs_dict):
         for attr, val in attrs_dict.iteritems():
             setattr(self, attr, val)
-
-    def delete(self):
-        self._backend.remove(self)
-
-    @classmethod
-    def classiterator(cls):
-        return iter(cls._backend)
-
-    @classmethod
-    def insert(cls, dummy):
-        cls._backend.append(dummy)
 
     def __repr__(self):
         return "<Dummy {name} [{id}]>".format(name=self.name, id=self.id)
@@ -59,8 +47,7 @@ def get_dummy(dummy_id=None):
     if method == 'POST':
         dummy_name = clean_form(flask.request.form, name=lambda lst: lst[0])['name']
         dummy_id = max(Dummy.get(), key=lambda d: d.id).id + 1
-        Dummy.insert(Dummy(dummy_id, dummy_name))
-        return jsonify(Dummy.get(id=dummy_id)[0])
+        return jsonify(Dummy(dummy_id, dummy_name))
     if method == 'DELETE':
         Dummy.get(id=dummy_id)[0].delete()
         return ''
@@ -68,7 +55,7 @@ def get_dummy(dummy_id=None):
 
 
 if __name__ == "__main__":
-    Dummy.insert(Dummy(0, "Test1"))
-    Dummy.insert(Dummy(1, "Test2"))
-    Dummy.insert(Dummy(2, "Test3"))
+    Dummy(0, "Test1")
+    Dummy(1, "Test2")
+    Dummy(2, "Test3")
     app.run(debug=True)
