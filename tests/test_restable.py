@@ -16,6 +16,10 @@ class Dummy(object):
     def commit(self):
         self._backend.flush()
 
+    @app.query('/dummy')
+    def query(**kwargs):
+        return kwargs
+
     @staticmethod
     def __rest__(jsn):
         return Dummy(jsn["id"])
@@ -24,7 +28,7 @@ class Dummy(object):
     def name(self, jsn):
         return jsn["name"]
 
-    @name.setter
+    @name.putter
     @flushersetter('_backend', 'name')
     def set_name(self, name):
         return name
@@ -75,7 +79,8 @@ def test_dummy_get():
 def test_dummy_put():
     d = Dummy(1)
     d.name = 'poof'
-    assert Dummy(1).name == "poof"
+    d.commit()
+    assert d.name == "poof"
 
 
 def test_dummy_post():
@@ -91,13 +96,18 @@ def test_dummy_delete():
         assert d.name
 
 
+def test_dummy_query():
+    ds = Dummy.query(name="Test1")
+    assert len(list(ds)) == 1
+
+
 def test_rdummy_get():
     d = RestfulDummy(0)
     assert d.name == "Test1"
 
 
 def test_rdummy_put():
-    d = RestfulDummy(1)
+    d = RestfulDummy(2)
     changes = d.set_name("poof")
     assert changes['name'] == "poof"
 

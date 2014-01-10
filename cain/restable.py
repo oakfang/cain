@@ -117,14 +117,23 @@ class GETRestfulMethod(RestfulMethod):
         super(GETRestfulMethod, self).__init__(f, route, base, raw)
         self.cache = cache
 
-    def __call__(self, instance):
-        url = self.get_url(instance)
+    def _get_from_cache(self, url, instance):
         if self.cache and url in self.cache:
             value = self.cache[url]
             return self.f(instance, json.loads(value) if not self.raw else value)
-        r = requests.get(url)
+        return None
+
+    def _get_request_value(self, url, params=None):
+        r = requests.get(url, params=params if params else {})
         validate_request(r)
-        value = r.text
+        return r.text
+
+    def __call__(self, instance):
+        url = self.get_url(instance)
+        cache_value = self._get_from_cache(url, instance)
+        if cache_value:
+            return cache_value
+        value = self._get_request_value(url)
         if self.f.func_code.co_argcount == 1:
             return self.f(instance)
         if self.cache:
@@ -136,18 +145,36 @@ class GETRestfulProperty(GETRestfulMethod):
     """
     This is a REST-ful GET property.
     It can be cached.
-    It can be set with a setter callback.
+    It can be set with a putter callback.
     """
     def __get__(self, instance, owner=None):
         return self(instance)
 
-    def setter(self, callback):
+    def putter(self, callback):
         self._setter = callback
 
     def __set__(self, instance, value):
         if not hasattr(self, '_setter'):
             raise AttributeError('This attribute cannot be set')
         self._setter(instance, value)
+
+
+class GETRestfulQueryStaticMethod(GETRestfulMethod):
+    """
+    This is a REST-ful GET query that tries to returns elements of owner.
+    """
+    def __get__(self, instance, owner=None):
+        return partial(self, owner)
+
+    def __call__(self, owner, *args, **kwargs):
+        params = self.f(*args, **kwargs)
+        url = self.get_url()
+        value = self._get_request_value(url, params)
+        if self.raw:
+            return value
+        if hasattr(owner, '__rest__'):
+            return (owner.__rest__(val) for val in json.loads(value))
+        return json.loads(value)
 
 
 class DELETERestfulMethod(RestfulMethod):
@@ -208,6 +235,11 @@ class RestfulApplication(object):
     def route(self, route, raw=False, cache=True):
         def _outer(f):
             return GETRestfulMethod(f, route, self.base, raw, self._cache if cache else None)
+        return _outer
+
+    def query(self, route, raw=False):
+        def _outer(f):
+            return GETRestfulQueryStaticMethod(f, route, self.base, raw, None)
         return _outer
 
     def post(self, route, raw=False):

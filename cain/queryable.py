@@ -13,7 +13,7 @@ class Queryable(object):
         return True
 
     @classmethod
-    def __get__(cls, *args, **kwargs):
+    def __query__(cls, *args, **kwargs):
         """
         Override to return the filtered object.
         """
@@ -22,7 +22,7 @@ class Queryable(object):
     @classmethod
     def get(cls, *args, **kwargs):
         assert cls.__validate__(), "Connection can't be validated."
-        return cls.__get__(*args, **kwargs)
+        return cls.__query__(*args, **kwargs)
 
 
 class ElixirQueryable(Queryable):
@@ -34,7 +34,7 @@ class ElixirQueryable(Queryable):
         return hasattr(cls, "query")
 
     @classmethod
-    def __get__(cls, *args, **kwargs):
+    def __query__(cls, *args, **kwargs):
         q = getattr(cls, "query")
         for arg in args:
             q = q.filter(arg)
@@ -43,13 +43,34 @@ class ElixirQueryable(Queryable):
         return q
 
 
-__FRAMEWORKS = {'elixir': ElixirQueryable}
+class IterableClass(type):
+    """
+    Iterable metaclass for iterable classes.
+    """
+    def __iter__(self):
+        return self.classiterator()
+
+
+class IterableQueryable(Queryable):
+    """
+    Queryable iterable-s
+    """
+    __metaclass__ = IterableClass
+
+    @classmethod
+    def __query__(cls, *args, **kwargs):
+        return filter(lambda x: all(hasattr(x, key) and getattr(x, key) == value for key, value in kwargs.iteritems()),
+                      cls)
+
+
+__FRAMEWORKS = {'elixir': ElixirQueryable,
+                IterableClass: IterableQueryable}
 Queryables = {}
 
 
 for framework in __FRAMEWORKS:
     try:
-        module = __import__(framework)
+        module = __import__(framework) if isinstance(framework, str) else framework
         Queryables[module] = __FRAMEWORKS[framework]
     except ImportError:
         pass
