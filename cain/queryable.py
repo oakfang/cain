@@ -55,7 +55,7 @@ class SelfContained(type):
         return iter(self.__backend)
         
     def __call__(self,*args, **kwargs):
-        i = super(SelfContained, cls).__call__(*args, **kwargs)
+        i = super(SelfContained, self).__call__(*args, **kwargs)
         self.__backend.append(i)
         return i
         
@@ -80,8 +80,7 @@ class BaseQueryable(Queryable):
         self.__class__.delete(self)
 
 
-__FRAMEWORKS = {'elixir': ElixirQueryable,
-                IterableClass: IterableQueryable}
+__FRAMEWORKS = {'elixir': ElixirQueryable}
 Queryables = {}
 
 
