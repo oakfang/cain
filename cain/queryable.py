@@ -43,24 +43,41 @@ class ElixirQueryable(Queryable):
         return q
 
 
-class IterableClass(type):
+class SelfContained(type):
     """
     Iterable metaclass for iterable classes.
     """
+    def __init__(cls, *args, **kwargs):
+        super(SelfContained, cls).__init__(*args, **kwargs)
+        cls.__backend = []
+        
     def __iter__(self):
-        return self.classiterator()
+        return iter(self.__backend)
+        
+    def __call__(self,*args, **kwargs):
+        i = super(SelfContained, cls).__call__(*args, **kwargs)
+        self.__backend.append(i)
+        return i
+        
+    def delete(cls, instance):
+        if not isinstance(instance, cls):
+            raise TypeError("Can't delete what doesn't belong")
+        cls.__backend.remove(instance)
 
 
-class IterableQueryable(Queryable):
+class BaseQueryable(Queryable):
     """
     Queryable iterable-s
     """
-    __metaclass__ = IterableClass
+    __metaclass__ = SelfContained
 
     @classmethod
     def __query__(cls, *args, **kwargs):
         return filter(lambda x: all(hasattr(x, key) and getattr(x, key) == value for key, value in kwargs.iteritems()),
                       cls)
+    
+    def delete(self):
+        self.__class__.delete(self)
 
 
 __FRAMEWORKS = {'elixir': ElixirQueryable,
