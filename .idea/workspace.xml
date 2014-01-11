@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b141e432-67b2-4030-a3a8-fa5320533736" name="Default" comment="">
+    <list default="true" id="b141e432-67b2-4030-a3a8-fa5320533736" name="Default" comment="more queryables&#10;query rest api&#10;adjusted tests">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cain/ghengis/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cain/queryable.py" afterPath="$PROJECT_DIR$/cain/queryable.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cain/restable.py" afterPath="$PROJECT_DIR$/cain/restable.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/restable_dummys.py" afterPath="$PROJECT_DIR$/tests/restable_dummys.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test_restable.py" afterPath="$PROJECT_DIR$/tests/test_restable.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cain.iws" />
@@ -32,7 +31,7 @@
       <file leaf-file-name="restable.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cain/restable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="241" column="68" selection-start="6716" selection-end="6716" vertical-scroll-proportion="0.0" vertical-offset="3417" max-vertical-offset="4200">
+            <state line="274" column="16" selection-start="7756" selection-end="7756" vertical-scroll-proportion="0.0" vertical-offset="3447" max-vertical-offset="4200">
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
@@ -40,10 +39,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_restable.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="test_restable.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_restable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="32" selection-start="2164" selection-end="2164" vertical-scroll-proportion="0.79268295" vertical-offset="900" max-vertical-offset="1950">
+            <state line="81" column="14" selection-start="1835" selection-end="1835" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1950">
               <folding>
                 <element signature="e#24#68#0" expanded="true" />
               </folding>
@@ -72,16 +71,16 @@
       <file leaf-file-name="queryable.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cain/queryable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="0" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0" vertical-offset="417" max-vertical-offset="1215">
+            <state line="91" column="12" selection-start="2264" selection-end="2264" vertical-scroll-proportion="0.0" vertical-offset="657" max-vertical-offset="1455">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="restable_dummys.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="restable_dummys.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/restable_dummys.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="72" selection-start="740" selection-end="740" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+            <state line="61" column="23" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.8780488" vertical-offset="267" max-vertical-offset="1005">
               <folding>
                 <element signature="e#24#36#0" expanded="true" />
               </folding>
@@ -113,11 +112,11 @@
         <option value="$PROJECT_DIR$/tests/jsonable_dummys.py" />
         <option value="$PROJECT_DIR$/tests/test_jsonable.py" />
         <option value="$USER_HOME$/Library/Caches/PyCharm30/python_stubs/596071422/__builtin__.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/cain/queryable.py" />
-        <option value="$PROJECT_DIR$/cain/restable.py" />
-        <option value="$PROJECT_DIR$/tests/restable_dummys.py" />
         <option value="$PROJECT_DIR$/tests/test_restable.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/cain/restable.py" />
+        <option value="$PROJECT_DIR$/cain/queryable.py" />
+        <option value="$PROJECT_DIR$/tests/restable_dummys.py" />
       </list>
     </option>
   </component>
@@ -194,6 +193,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="cain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ghengis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -399,7 +416,15 @@
       <created>1389259414087</created>
       <updated>1389259414087</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="more queryables&#10;query rest api&#10;adjusted tests">
+      <created>1389354779654</created>
+      <updated>1389354779654</updated>
+    </task>
+    <task id="LOCAL-00006" summary="updated setup.py">
+      <created>1389355329252</created>
+      <updated>1389355329252</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -415,7 +440,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.76067525" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23932473" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23932473" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -438,7 +463,9 @@
     <MESSAGE value="using setuptools instead of distutils" />
     <MESSAGE value="added restable and it's awesome" />
     <MESSAGE value="robust restable&#10;testing with jsonable" />
-    <option name="LAST_COMMIT_MESSAGE" value="robust restable&#10;testing with jsonable" />
+    <MESSAGE value="more queryables&#10;query rest api&#10;adjusted tests" />
+    <MESSAGE value="updated setup.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated setup.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -500,9 +527,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_restable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="14" selection-start="1835" selection-end="1835" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1950">
+          <folding>
+            <element signature="e#24#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cain/restable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="241" column="68" selection-start="6716" selection-end="6716" vertical-scroll-proportion="0.0" vertical-offset="3417" max-vertical-offset="4200">
+        <state line="274" column="16" selection-start="7756" selection-end="7756" vertical-scroll-proportion="0.0" vertical-offset="3447" max-vertical-offset="4200">
           <folding>
             <element signature="e#24#33#0" expanded="true" />
           </folding>
@@ -511,25 +547,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cain/queryable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="0" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0" vertical-offset="247" max-vertical-offset="1215">
+        <state line="91" column="12" selection-start="2264" selection-end="2264" vertical-scroll-proportion="0.0" vertical-offset="657" max-vertical-offset="1455">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/restable_dummys.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="72" selection-start="740" selection-end="740" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+        <state line="61" column="23" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.8780488" vertical-offset="267" max-vertical-offset="1005">
           <folding>
             <element signature="e#24#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_restable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="32" selection-start="2164" selection-end="2164" vertical-scroll-proportion="0.79268295" vertical-offset="900" max-vertical-offset="1950">
-          <folding>
-            <element signature="e#24#68#0" expanded="true" />
           </folding>
         </state>
       </provider>
