@@ -50,7 +50,8 @@ def get_dummy(dummy_id=None):
         dummy_id = max(Dummy.get(), key=lambda d: d.id).id + 1
         return jsonify(Dummy(dummy_id, dummy_name))
     if method == 'DELETE':
-        Dummy.get(id=dummy_id)[0].delete()
+        d = Dummy.get(id=dummy_id)[0]
+        Dummy.delete(d)
         return ''
     raise ValueError('Method {} Unsupported'.format(method))
 

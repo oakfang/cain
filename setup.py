@@ -2,9 +2,9 @@ from setuptools import setup
 
 setup(
     name='cain',
-    version='0.2.2',
+    version='0.3',
     packages=['cain'],
-    requires=['requests'],
+    requires=['requests', 'pymongo', 'flask'],
     url='',
     license='',
     author='oakfang',

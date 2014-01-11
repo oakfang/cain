@@ -75,18 +75,49 @@ class BaseQueryable(Queryable):
     def __query__(cls, *args, **kwargs):
         return filter(lambda x: all(hasattr(x, key) and getattr(x, key) == value for key, value in kwargs.iteritems()),
                       cls)
-    
-    def delete(self):
-        self.__class__.delete(self)
 
 
-__FRAMEWORKS = {'elixir': ElixirQueryable}
-Queryables = {}
+class MongolQueryable(Queryable):
+    @classmethod
+    def __query__(cls, *args, **kwargs):
+        from genghis.utils import to_object_id
+        if '_id' in kwargs:
+            kwargs['_id'] = to_object_id(kwargs['_id'])
+        return MongolQuery(cls, cls.collection.find(kwargs))
 
 
-for framework in __FRAMEWORKS:
-    try:
-        module = __import__(framework) if isinstance(framework, str) else framework
-        Queryables[module] = __FRAMEWORKS[framework]
-    except ImportError:
-        pass
+class MongolQuery(object):
+    def __init__(self, cls, query):
+        self._cls = cls
+        self._query = query
+
+    def __getitem__(self, item):
+        json = self._query[item]
+        _id = json['_id']
+        del json['_id']
+        return self._cls.init(_id, **json)
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        json = self._query.next()
+        _id = json['_id']
+        del json['_id']
+        return self._cls.init(_id, **json)
+
+    def __proxy(self, attribute):
+        from pymongo.cursor import Cursor
+
+        def _wrapper(*args, **kwargs):
+            r = attribute(*args, **kwargs)
+            if isinstance(r, Cursor):
+                return self.__class__(self._cls, r)
+            return r
+        return _wrapper
+
+    def __getattr__(self, item):
+        attribute = getattr(self._query, item)
+        if not callable(attribute):
+            return attribute
+        return self.__proxy(attribute)

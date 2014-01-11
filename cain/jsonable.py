@@ -25,7 +25,7 @@ class Jsonable(object):
         """
         Override this to implement a smarter way of self encoding.
         """
-        jdict = {attr: raw_json(getattr(self, attr)) for attr in self.__jattrs__}
+        jdict = {attr: raw_json(getattr(self, attr)) for attr in self.__jattrs__ if hasattr(self, attr)}
         return jdict
 
     @classmethod
