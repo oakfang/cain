@@ -11,6 +11,8 @@ class GenghisMeta(type):
         else:
             attributes_dict["__collection__"] = attributes_dict["__collection__"].lower()
         cls._fields = dict(filter(lambda tpl: isinstance(tpl[1], Exported), attributes_dict.iteritems()))
+        if "__jattrs__" not in attributes_dict:
+            attributes_dict["__jattrs__"] = ['id'] + cls._fields.keys()
         for key, exported in cls._fields.iteritems():
             exported.set_name(key)
         cls._genghis_app = None

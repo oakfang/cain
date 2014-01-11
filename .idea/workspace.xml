@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b141e432-67b2-4030-a3a8-fa5320533736" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cain/genghis/app.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cain/genghis/fields.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cain/genghis/meta.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/test_genghis.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cain/genghis/utils.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/cain/ghengis/__init__.py" afterPath="$PROJECT_DIR$/cain/genghis/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cain/jsonable.py" afterPath="$PROJECT_DIR$/cain/jsonable.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cain/queryable.py" afterPath="$PROJECT_DIR$/cain/queryable.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/restable_dummys.py" afterPath="$PROJECT_DIR$/tests/restable_dummys.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cain/genghis/meta.py" afterPath="$PROJECT_DIR$/cain/genghis/meta.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test_genghis.py" afterPath="$PROJECT_DIR$/tests/test_genghis.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cain.iws" />
@@ -58,8 +50,18 @@
       <file leaf-file-name="queryable.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cain/queryable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="37" selection-start="2675" selection-end="2675" vertical-scroll-proportion="0.0" vertical-offset="1092" max-vertical-offset="1920">
-              <folding />
+            <state line="106" column="0" selection-start="2638" selection-end="2638" vertical-scroll-proportion="0.0" vertical-offset="1092" max-vertical-offset="1920">
+              <folding>
+                <marker date="1389453062000" expanded="true" signature="1003:1609" placeholder="..." />
+                <marker date="1389453062000" expanded="true" signature="1008:1064" placeholder="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1389453062000" expanded="true" signature="1464:1609" placeholder="..." />
+                <marker date="1389453062000" expanded="true" signature="1643:1924" placeholder="..." />
+                <marker date="1389453062000" expanded="true" signature="1648:1684" placeholder="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1389453062000" expanded="true" signature="1960:2210" placeholder="..." />
+                <marker date="1389453062000" expanded="true" signature="2018:2210" placeholder="..." />
+                <marker date="1389453062000" expanded="true" signature="2239:3160" placeholder="..." />
+                <marker date="1389453062000" expanded="true" signature="2275:2327" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,7 +69,7 @@
       <file leaf-file-name="restable_dummys.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/restable_dummys.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="60" selection-start="879" selection-end="1811" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1020">
+            <state line="55" column="21" selection-start="1041" selection-end="1901" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1020">
               <folding>
                 <element signature="e#24#36#0" expanded="true" />
               </folding>
@@ -75,10 +77,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_genghis.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="test_genghis.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_genghis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="36" selection-start="1358" selection-end="1358" vertical-scroll-proportion="0.81707317" vertical-offset="297" max-vertical-offset="1050">
+            <state line="11" column="25" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
               <folding>
                 <element signature="e#24#79#0" expanded="true" />
               </folding>
@@ -117,10 +119,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="meta.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="meta.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cain/genghis/meta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="48" selection-start="1126" selection-end="1126" vertical-scroll-proportion="0.0" vertical-offset="27" max-vertical-offset="840">
+            <state line="14" column="40" selection-start="558" selection-end="558" vertical-scroll-proportion="0.28455284" vertical-offset="0" max-vertical-offset="870">
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
               </folding>
@@ -143,6 +145,9 @@
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
+  </component>
+  <component name="Git.Push.Settings">
+    <option name="myUpdateMethod" value="REBASE" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -167,10 +172,10 @@
         <option value="$PROJECT_DIR$/cain/genghis/fields.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/cain/queryable.py" />
-        <option value="$PROJECT_DIR$/cain/genghis/meta.py" />
         <option value="$PROJECT_DIR$/cain/jsonable.py" />
         <option value="$PROJECT_DIR$/cain/genghis/app.py" />
         <option value="$PROJECT_DIR$/tests/test_genghis.py" />
+        <option value="$PROJECT_DIR$/cain/genghis/meta.py" />
       </list>
     </option>
   </component>
@@ -482,7 +487,11 @@
       <created>1389441034922</created>
       <updated>1389441034922</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="genghis nodoc edition">
+      <created>1389453014450</created>
+      <updated>1389453014450</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -524,7 +533,8 @@
     <MESSAGE value="more queryables&#10;query rest api&#10;adjusted tests" />
     <MESSAGE value="updated setup.py" />
     <MESSAGE value="pull failed" />
-    <option name="LAST_COMMIT_MESSAGE" value="pull failed" />
+    <MESSAGE value="genghis nodoc edition" />
+    <option name="LAST_COMMIT_MESSAGE" value="genghis nodoc edition" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -562,7 +572,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="81" column="14" selection-start="1835" selection-end="1835" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1950">
           <folding>
-            <element signature="e#24#68#0" expanded="true" />
+            <element signature="e#24#68#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -597,35 +607,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/restable_dummys.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="60" selection-start="879" selection-end="1811" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1020">
-          <folding>
-            <element signature="e#24#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cain/queryable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="37" selection-start="2675" selection-end="2675" vertical-scroll-proportion="0.0" vertical-offset="1092" max-vertical-offset="1920">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cain/genghis/meta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="48" selection-start="1126" selection-end="1126" vertical-scroll-proportion="0.0" vertical-offset="27" max-vertical-offset="840">
+        <state line="106" column="0" selection-start="2638" selection-end="2638" vertical-scroll-proportion="0.0" vertical-offset="1092" max-vertical-offset="1920">
           <folding>
-            <element signature="e#24#51#0" expanded="true" />
+            <marker date="1389453062000" expanded="true" signature="1003:1609" placeholder="..." />
+            <marker date="1389453062000" expanded="true" signature="1008:1064" placeholder="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1389453062000" expanded="true" signature="1464:1609" placeholder="..." />
+            <marker date="1389453062000" expanded="true" signature="1643:1924" placeholder="..." />
+            <marker date="1389453062000" expanded="true" signature="1648:1684" placeholder="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1389453062000" expanded="true" signature="1960:2210" placeholder="..." />
+            <marker date="1389453062000" expanded="true" signature="2018:2210" placeholder="..." />
+            <marker date="1389453062000" expanded="true" signature="2239:3160" placeholder="..." />
+            <marker date="1389453062000" expanded="true" signature="2275:2327" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cain/jsonable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="102" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -647,11 +642,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/restable_dummys.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="21" selection-start="1041" selection-end="1901" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1020">
+          <folding>
+            <element signature="e#24#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cain/jsonable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="102" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_genghis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="36" selection-start="1358" selection-end="1358" vertical-scroll-proportion="0.81707317" vertical-offset="297" max-vertical-offset="1050">
+        <state line="11" column="25" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
           <folding>
             <element signature="e#24#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cain/genghis/meta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="40" selection-start="558" selection-end="558" vertical-scroll-proportion="0.28455284" vertical-offset="0" max-vertical-offset="870">
+          <folding>
+            <element signature="e#24#51#0" expanded="true" />
           </folding>
         </state>
       </provider>

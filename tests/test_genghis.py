@@ -10,7 +10,6 @@ app = GenghisApplication("GenghisTest", "localhost")
 
 @app.register
 class TestMongol(Mongol):
-    __jattrs__ = ['id', 'mood', 'name', 'age']
     __collection__ = 'mongols'
     mood = Exported(str)
     name = Exported(str, required=True)
