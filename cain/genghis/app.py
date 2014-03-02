@@ -4,7 +4,7 @@ import pymongo
 import flask
 from meta import GenghisMeta, to_object_id
 from cain.jsonable import Jsonable, jsonify
-from cain.queryable import MongolQueryable
+from cain.queryable import Queryable
 
 
 def basic_restful_api(request, mongol, oid=None):
@@ -66,7 +66,7 @@ class GenghisApplication(object):
         return mongol
 
 
-class Mongol(Jsonable, MongolQueryable):
+class Mongol(Jsonable, Queryable):
     __metaclass__ = GenghisMeta
 
     def __init__(self, **kwargs):
@@ -82,3 +82,46 @@ class Mongol(Jsonable, MongolQueryable):
     @property
     def id(self):
         return self._id.binary.encode('hex')
+
+    @classmethod
+    def __query__(cls, *args, **kwargs):
+        for arg in args:
+            kwargs.update(arg)
+        if '_id' in kwargs:
+            kwargs['_id'] = to_object_id(kwargs['_id'])
+        return MongolQuery(cls, cls.collection.find(kwargs))
+
+
+class MongolQuery(object):
+    def __init__(self, cls, query):
+        self._cls = cls
+        self._query = query
+
+    def __getitem__(self, item):
+        json = self._query[item]
+        _id = json['_id']
+        del json['_id']
+        return self._cls.init(_id, **json)
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        json = self._query.next()
+        _id = json['_id']
+        del json['_id']
+        return self._cls.init(_id, **json)
+
+    def __proxy(self, attribute):
+        def _wrapper(*args, **kwargs):
+            r = attribute(*args, **kwargs)
+            if isinstance(r, pymongo.cursor.Cursor):
+                return self.__class__(self._cls, r)
+            return r
+        return _wrapper
+
+    def __getattr__(self, item):
+        attribute = getattr(self._query, item)
+        if not callable(attribute):
+            return attribute
+        return self.__proxy(attribute)

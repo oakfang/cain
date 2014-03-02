@@ -36,16 +36,28 @@ def test_normal_creation_and_deletion():
     assert m.name == "oakfang"
     assert m.age == 20
     assert m.mood == "crazy!"
-    TestMongol.delete(m)
 
 
 def test_finding():
+    TestMongol.collection.remove({})
     TestMongol(name="poof", age=20, mood="lazy!")
     TestMongol(name="foo", age=50, mood="lazy!")
     TestMongol(name="bar")
     assert TestMongol.get(age=50).count() == 1
     assert TestMongol.get(mood="lazy!").count() == 2
     assert TestMongol.get().count() == 3
+
+
+def test_advanced_finding():
+    TestMongol.collection.remove({})
+    TestMongol(name="poof", age=20, mood="lazy!")
+    TestMongol(name="foo", age=50, mood="lazy!")
+    TestMongol(name="bar")
+    TestMongol(name="rook", age=14, mood="lazy ass")
+    TestMongol(name="mike", age=10)
+    assert TestMongol.get(TestMongol.age > 15).count() == 2
+    assert TestMongol.get(TestMongol.name.like(".*oo.*")).count() == 3
+    assert TestMongol.get(TestMongol.mood.exists(False)).count() == 2
 
 
 def teardown_module(module):
