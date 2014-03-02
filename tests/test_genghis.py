@@ -14,6 +14,7 @@ class TestMongol(Mongol):
     mood = Exported(str)
     name = Exported(str, required=True)
     age = Exported(int, default=0)
+    nicknames = Exported(list)
 
 
 def test_required():
@@ -54,10 +55,12 @@ def test_advanced_finding():
     TestMongol(name="foo", age=50, mood="lazy!")
     TestMongol(name="bar")
     TestMongol(name="rook", age=14, mood="lazy ass")
-    TestMongol(name="mike", age=10)
+    TestMongol(name="mike", age=10, nicknames=["mikmik", "foobar"])
     assert TestMongol.get(TestMongol.age > 15).count() == 2
     assert TestMongol.get(TestMongol.name.like(".*oo.*")).count() == 3
     assert TestMongol.get(TestMongol.mood.exists(False)).count() == 2
+    assert TestMongol.get(TestMongol.nicknames.has("foobar")).count() == 1
+    assert TestMongol.get(TestMongol.nicknames.count(1)).count() == 0
 
 
 def teardown_module(module):

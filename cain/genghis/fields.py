@@ -41,6 +41,12 @@ class Exported(object):
     def exists(self, does_exist=True):
         return {self._name: {"$exists": does_exist}}
 
+    def has(self, *items):
+        return {self._name: {"$all": items}}
+
+    def count(self, cnt):
+        return {self._name: {"$size": cnt}}
+
     def __get__(self, instance, owner=None):
         if owner:
             return self
